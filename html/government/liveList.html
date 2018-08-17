@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"
+    />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>雪亮监控</title>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/mint-ui.css">
+    <link rel="stylesheet" href="../../css/population/populationQuery.css">
+    <style>
+        .container{
+            position: absolute;
+            top: 60px;
+            width: 100%;
+        }
+        .mint-searchbar{
+            background: #EFEFEF;
+        }
+        .seacrch{
+            height: 100% !important;
+        }
+        .classification{
+            padding: 2px 5px 10px 5px;
+            font-size: 16px;
+        }
+        .classification .blue{
+            color: #52c4f1;
+            display: inline;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="list" class="wrapper">
+        <div id="header">
+            <div class="arrow" @click="closeWin">
+                <img src="../../image/return.png" alt="">
+            </div>
+            <div class="zline"></div>
+            雪亮监控
+        </div>
+        <div class="container">
+            <!--搜索 start-->
+            <mt-search v-model="seacrch" cancel-text="取消" placeholder="搜索" class="seacrch">
+            </mt-search>
+            <!--搜索 end-->
+            <div class="classification">
+                广饶县>广饶街道>民安社区><span class="blue">贵和苑></span>
+            </div>
+            <mt-cell title="民安社区贵和苑" @click.native="toMonitor" is-link>
+            </mt-cell>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/vue.js"></script>
+    <script type="text/javascript" src="../../script/mint-ui.js"></script>
+    <script type="text/javascript" src="../../script/UICore.js"></script>
+    <script>
+        apiready = function () {
+            new Vue({
+                el: "#list",
+                data: {
+                    seacrch: ''
+                },
+                methods: {
+                    toMonitor: function () {
+                        api.openWin({
+                            name: 'live',
+                            url: './live.html',
+                            vScrollBarEnabled: false,
+                            pageParam: {
+                                name: "监控",
+                            }
+                        });
+                    },
+                    closeWin: function () {
+                        api.closeWin();
+                    }
+                }// methods end.
+            });
+        }
+    </script>
+</body>
+
+</html>

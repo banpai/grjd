@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"
+  />
+  <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+  <title>编辑</title>
+  <link rel="stylesheet" href="../../../script/cube-ui/cube.min.css">
+  <link rel="stylesheet" href="../../../css/main.css">
+  <link rel="stylesheet" href="../../../css/population/population.css">
+  <link rel="stylesheet" href="../../../css/upload.css">
+</head>
+
+<body>
+  <div id="list">
+    <div id="header">
+      <div class="arrow" @click="closeWin">
+        <img src="../../../image/return.png">
+      </div>
+      <div class="zline"></div>
+      {{title}}
+      <div class="asubmit" @click="uploadAttach" id="pkh_add_su" v-if="editFlag">提交</div>
+      <div class="asubmit" @click="editFlag = true" id="pkh_add_su" v-else>编辑</div>
+    </div>
+    <div class="container" v-cloak>
+      <div class="pk_togger" style="margin-top: 70px;">
+        <!--加载表单组件 start-->
+        <ocn-form 
+          :f="f" 
+          :show="show" 
+          @submit="submit" 
+          ref="ocnForm" 
+          :flag="!editFlag" 
+          :set="set"></ocn-form>
+        <!--加载表单组件 end-->
+        <!--加载附件组件 start-->
+        <api-upload :imgarray="imgarray" :flag="!editFlag" :icon="icon"></api-upload>
+        <!--加载附件组件 end-->
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../../../script/api.js"></script>
+  <script type="text/javascript" src="../../../script/UICore.js"></script>
+  <script type="text/javascript" src="../../../script/vue.js"></script>
+  <script type="text/javascript" src="../../../script/vueMixin.js"></script>
+  <script type="text/javascript" src="../../../script/specialCrowd/common/set.js"></script>
+  <script type="text/javascript" src="../../../script/specialCrowd/common/helperAddEdit.js"></script>
+  <script src="../../../script/cube-ui/cube.min.js"></script>
+</body>
+
+</html>

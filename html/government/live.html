@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"
+    />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>实时监控</title>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/mint-ui.css">
+    <link rel="stylesheet" href="../../css/population/populationQuery.css">
+    <link rel="stylesheet" href="../../css/common/video-js.css">
+    <link rel="stylesheet" href="../../css/cityComponent/cityComponent.css">
+    <style>
+        #example-video {
+            position: absolute;
+            top: 60px;
+            width: 100%;
+            height: 295px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="list" class="wrapper">
+        <div id="header">
+            <div class="arrow" onclick="api.closeWin()">
+                <img src="../../image/return.png" alt="">
+            </div>
+            <div class="zline"></div>
+            实时监控
+        </div>
+
+    </div>
+    <video id=example-video class="video-js vjs-default-skin" controls>
+        <source src="http://60.232.15.3:10800/hls/stream_431/stream_431_live.m3u8" type="application/x-mpegURL">
+    </video>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/UICore.js"></script>
+    <script src="../../script/common/video.js"></script>
+    <script src="../../script/common/videojs-flash.js"></script>
+    <script src="../../script/common/videojs-contrib-hls.js"></script>
+    <script>
+        var player = videojs('example-video');
+        player.width(640);
+        player.play();
+    </script>
+</body>
+
+</html>

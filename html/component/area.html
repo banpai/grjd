@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择行政区划</title>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/event/event_type.css">
+    <link rel="stylesheet" href="../../css/animate/animate.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/vue.js"></script>
+    <script type="text/javascript" src="../../script/UICore.js"></script>
+    <script type="text/javascript" src="../../script/component/area.js"></script>
+
+    <script type="text/x-template" id="item-element">
+      <div class="pk_togger" >
+        <div class="title_g2" v-ripple="'rgba(46, 173, 252, 0.71)'">测试</div>
+
+      </div>
+    </script>
+</head>
+<body>
+  <div id="list">
+    <!-- 标题栏 -->
+    <div id="header">
+        <div class="arrow" id="closeWin" @click="areaSelect.length>0?areaBack():closeWin()">
+            <img src="../../image/return.png" alt="">
+        </div>
+        <div class="zline"></div>
+          行政区划
+        <div class="asubmit"  @click="saveArea()">提交</div>
+    </div>
+
+    <!-- 表单内容 -->
+    <div class="ev_hui_top"></div>
+    <div id="ev_content" >
+      <div class="pk_togger" >
+        <div class="title_g2">已选中:{{areaRouter}}</div>
+      </div>
+      <div class="clear ev_hui_cen"></div>
+      <transition-group enter-active-class="animated zoomIn" leave-active-class="animated zoomOut" >
+        <div class="pk_togger"  v-for="(area,index) in areaItem" :key="area.id" @click="area.children?choseOne(area.id,area.name,area.parentId,area.code):save(area.id,area.name,area.parentId,area.code)">
+          <div :class="area.children?haveChildrenCss:noChildrenCss">{{area.name}}</div>
+        </div>
+      </transition-group>
+    </div>
+  </div>
+
+
+
+
+</body>
+
+</html>

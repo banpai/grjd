@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新增出租屋</title>
+    <link rel="stylesheet" href="../../css/main.css">
+    <!-- <link rel="stylesheet" href="../../css/mint-ui.css"> -->
+    <link rel="stylesheet" href="../../css/house/house.css">
+</head>
+
+<body>
+    <div id="list">
+        <div id="header">
+            <div class="arrow" @click="closeWin">
+                <img src="../../image/return.png" alt="">
+            </div>
+            <div class="zline"></div>
+            <label id="legalTitle"></label>
+            <div class="asubmit" @click="submit" id="pkh_add_su">提交</div>
+        </div>
+        <div class="container" v-cloak>
+            <div class="pk_togger" style="margin-top: 70px;">
+                <house-component hosetitle="选择房屋:" myclass="bg_j pk_mem_input">
+                    <input type="text" @click="selectHouse('rentalHouse')"  name="" readonly="readonly" placeholder="请选择"/>
+                </house-component>
+                <house-component hosetitle="房号:" myclass="pk_mem_input_all">
+                    <input type="text" v-model="houseNum" readonly="readonly" name=""  />
+                </house-component>
+                <house-component hosetitle="房户用途:" myclass="pk_mem_input_all">
+                    <input type="text" v-model="houseUse" name="" readonly="readonly"  />
+                </house-component>
+
+                <div class="clear dynamic"></div>
+                <house-component hosetitle="房屋编号:" myclass="pk_mem_input_all">
+                    <input type="text" v-bind:readonly="isClick" v-model="houseNumber" name=""  placeholder="请输入" />
+                </house-component>
+                <house-component hosetitle="证件代码:" myclass="pk_mem_input_all">
+                    <input type="text" v-bind:readonly="isClick" v-model="certificateCode" name=""  placeholder="请输入" />
+                </house-component>
+
+                <house-component hosetitle="证件号码:" myclass="pk_mem_input_all">
+                    <input type="text" v-bind:readonly="isClick" name="" v-model="certificateNumber" placeholder="请输入" />
+                </house-component>
+                <house-component hosetitle="房主姓名:" myclass="pk_mem_input_all">
+                    <input type="text" v-bind:readonly="isClick" name="" v-model="ownerName" placeholder="请输入-必填" />
+                </house-component>
+                <house-component hosetitle="房主联系方式:" myclass="pk_mem_input_all">
+                    <input type="text" v-bind:readonly="isClick" name="" v-model="ownerTell" placeholder="请输入" />
+                </house-component>
+                <house-component hosetitle="隐患类型:" myclass="bg_j pk_mem_input">
+                    <input type="text" @click="potentialTypeSelect" readonly="readonly"  name="" v-model="potentialType" placeholder="请选择" />
+                </house-component>
+                <house-component hosetitle="出租用途:" myclass="bg_j pk_mem_input">
+                    <input type="text" @click="rentalUseSelect" name="" readonly="readonly"  v-model="rentalUse" placeholder="请选择" />
+                </house-component>
+                <house-component hosetitle="租户成员:" myclass="pk_mem_input_all">
+                    <!-- <div class="input_cen_l">
+                        <input type="text" v-model="houseMembers" name="" placeholder="请输入-必填" /><span>人</span>
+                    </div> -->
+                    <div :class="{hidebtn:isBrowser}" class="cen_r_butt" @click="addMenber()">添 加</div>
+                </house-component>
+
+                <table class="table" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <td>姓名</td>
+                            <td>身份证号</td>
+                            <!-- <td>户成员关系</td> -->
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in memberinfo_arr" @click="edits(item)">
+                            <td>{{item.name}}</td>
+                            <td>{{item.idCard}}</td>
+                            <!-- <td>{{item.relation}}</td> -->
+                            <td>
+                                <div class="members" @click.stop="del(item)">删除</div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <!-- <div class="clear"></div>
+                <div class="er_templ" v-for="(expand,index) of expandTab_arr">
+                    <div class="er_templ_in">
+                        <div class="er_lable">{{expand.name}}</div>
+                        <div class="bg_j pk_mem_input">
+                            <input @click="expandselect(index,expand.english_name,expand.name)" v-model="expand.value" readonly="readonly" type="text" name="" placeholder="请选择" />
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/vue.js"></script>
+    <!-- <script type="text/javascript" src="../../script/mint-ui.js"></script> -->
+    <script type="text/javascript" src="../../script/UICore.js"></script>
+    <script type="text/javascript" src="../../script/rentalHouse/rentalHouse.js"></script>
+</body>
+<template id="houseInfo">
+  <div class="er_templ">
+    <div class="er_templ_in">
+      <div class="er_lable">{{hosetitle}}</div>
+        <div :class="myclass">
+          <slot></slot>
+        </div>
+    </div>
+  </div>
+</template>
+
+</html>

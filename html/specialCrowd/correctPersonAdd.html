@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>编辑</title>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/population/population.css">
+</head>
+
+<body>
+    <div id="list">
+        <div id="header">
+            <div class="arrow" @click="closeWin">
+                <img src="../../image/return.png" alt="">
+            </div>
+            <div class="zline"></div>
+            新增
+            <div class="asubmit" @click="uploadAttach" id="pkh_add_su">提交</div>
+        </div>
+        <div class="container" v-cloak>
+            <div class="pk_togger" style="margin-top: 70px;">
+                <!-- <div class="photo" id="basic-photo-add"> -->
+                   <!-- <img src="../../image/icon_del.png" v-show="deleteImgShow" @click="deleteImg" /> -->
+                   <!-- <img :src="phoneImg" @click="getImg" alt=""> -->
+                <!-- </div> -->
+
+                <population-component personinfos="姓名:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text"   v-bind:readonly="isClick" name="" v-model="name" placeholder="请输入-必填" />
+                    <!-- <span id="nameError" style="display:none">姓名格式不对</span> -->
+                </population-component>
+
+                <population-component personinfos="身份证号:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text"@blur="checkidentity"  v-bind:readonly="isClick" name="" v-model="numberId" placeholder="请输入-必填" />
+                    <!-- <span v-blind:class="{active:isactive}">正确</span> -->
+                    <!-- <span v-bind:class="{active:!isactive}">错误</span> -->
+                </population-component>
+                <!-- <check-component checkinfos="身份证号:" customclass="pk_mem_input_all">
+                  <input slot="element" type="text"@blur="identityf"  v-bind:readonly="isClick" name="" v-model="identity" placeholder="请输入-必填" />
+                </check-component> -->
+
+                <population-component personinfos="性别:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" name="" @click="sexf" v-model="sex" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="出生日期:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" name="" @click="datef" v-model="date" readonly="readonly" placeholder="请选择" />
+                </population-component>
+
+                <population-component personinfos="曾用名:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text"   v-bind:readonly="isClick" name="" v-model="oldName" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="民族:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" name="" @click="nationf" v-model="nation" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="政治面貌:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" name="" @click="politicalLandscapef" v-model="politicalLandscape" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="宗教信仰:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" name="" @click="religionf" v-model="religiousBelief" readonly="readonly" placeholder="请选择" />
+                </population-component>
+
+                <population-component personinfos="文化程度:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" name="" @click="educationf" v-model="education" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="婚姻状况:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" name="" @click="marryf" v-model="marry" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="职业类别:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" name="" @click="workCategoryf" v-model="workCategory" readonly="readonly" placeholder="请选择" />
+                </population-component>
+
+                <population-component personinfos="职业:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="work" placeholder="请输入-必填" />
+                </population-component>
+
+                <population-component personinfos="户籍地:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" name="" v-bind:readonly="isClick" v-model="domicile"  placeholder="请输入-必填" />
+                </population-component>
+
+                <population-component personinfos="户籍详址:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="domicileAddress" placeholder="请输入-必填" />
+                </population-component>
+
+                <population-component personinfos="现居地:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="address" placeholder="请输入-必填" />
+                </population-component>
+
+                <population-component personinfos="现居详址:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="addressDetail" placeholder="请输入-必填" />
+                </population-component>
+
+                <population-component personinfos="手机号码:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" @blur="checkPhone"v-bind:readonly="isClick" name="" v-model="tel" placeholder="请输入-必填" />
+                </population-component>
+
+                <population-component personinfos="社区矫正人员编号:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="personnelNumber" placeholder="请输入-必填" />
+                </population-component>
+
+                <population-component personinfos="原羁押场所:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="placeDetention" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="矫正类别:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="correctiveCategoryf" name="" v-model="correctiveCategory" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="案件类别:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="caseCategory" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="具体罪名:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="specificCharges" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="原判刑期:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="time" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="原判刑开始日期:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="sentencingPeriod" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="原判刑结束日期:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="sentencinOldgperiod" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="矫正开始日期:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="startData" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="矫正结束日期:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="oldData" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="接收方式:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="receivingModef" name="" v-model="receivingMode" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="四史情况:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="fourCasesf" name="" v-model="fourCases" readonly="readonly" placeholder="请选择" />
+                </population-component>
+
+                <population-component personinfos="是否惯犯:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="whetherRecidivistsf" name="" v-model="whetherRecidivists" readonly="readonly" placeholder="请选择" />
+                </population-component>
+
+                <population-component personinfos="三涉情况:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="threeInvolvedf" name="" v-model="threeInvolved" readonly="readonly" placeholder="请选择" />
+                </population-component>
+
+                <population-component personinfos="是否建立矫正小组:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="correctionGroupf" name="" v-model="correctionGroup" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="是否有脱管:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="thereisFthecampf" name="" v-model="thereisFthecamp" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="脱管原因:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="reasonpPeremoval" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="检查监督脱管情况:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="checkSupervision" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="脱管纠正情况:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="rectifySituation" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="矫正小组人员组成情况:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="correctionDetailf" name="" v-model="correctionDetail" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="矫正解除（终止）类型:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text"  @click="releaseTypef"  name="" v-model="releaseType" readonly="readonly" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="适口类型:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="palatabilityTypef" name="" v-model="palatabilityType" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="是否有漏管:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="isLouguanf" name="" v-model="isLouguan" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="漏管原因:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="leakageReason" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="检查监督漏管情况:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="checkLeakage" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="漏管纠正情况:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="leakageCorrection" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="奖惩情况:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="punishments" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="刑罚变更执行情况:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="penaltyAlteration" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="是否重新犯罪:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text" @click="isMorecrimesf" name="" v-model="isMorecrimes" readonly="readonly" placeholder="请选择-必选" />
+                </population-component>
+
+                <population-component personinfos="重新犯罪名称犯罪:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="crimesName" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="其它需要说明的问题:" myclass="pk_mem_input_all">
+                    <input slot="myele" type="text" v-bind:readonly="isClick" name="" v-model="otherProblem" placeholder="请输入" />
+                </population-component>
+
+                <population-component personinfos="关联地图:" myclass="bg_j pk_mem_input">
+                    <input slot="myele" type="text"  @click="goMap" name="" v-model="coordinate" readonly="readonly" placeholder="请选择" />
+                </population-component>
+
+
+                <div class="clear dynamic"></div>
+                <div class="er_templ" v-for="(expand,index) of expandTab_arr">
+                    <div class="er_templ_in">
+                        <div class="er_lable">{{expand.name}}</div>
+                        <div class="bg_j pk_mem_input">
+                            <input @click="expandselect(index,expand.english_name,expand.name)" v-model="expand.value" readonly="readonly" type="text" name="" placeholder="请选择" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/vue.js"></script>
+    <script type="text/javascript" src="../../script/UICore.js"></script>
+    <script type="text/javascript" src="../../script/vueMixin.js"></script>
+    <script type="text/javascript" src="../../script/specialCrowd/correctPersonAdd.js"></script>
+</body>
+<template id="personinfo">
+  <div class="er_templ">
+    <div class="er_templ_in">
+      <div class="er_lable">{{personinfos}}</div>
+        <div :class="myclass">
+          <slot name="myele"></slot>
+        </div>
+    </div>
+  </div>
+</template>
+</html>

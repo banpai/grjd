@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"
+  />
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <title>新增帮扶记录</title>
+  <link rel="stylesheet" href="../../css/main.css">
+  <!-- <link rel="stylesheet" href="../../css/mint-ui.css"> -->
+  <link rel="stylesheet" href="../../css/house/house.css">
+  <link rel="stylesheet" href="../../css/upload.css">
+</head>
+
+<body>
+  <div id="list" v-cloak>
+    <div id="header">
+      <div class="arrow" @click="closeWin">
+        <img src="../../image/return.png" alt="">
+      </div>
+      <div class="zline"></div>
+      <label>{{title}}</label>
+      <div class="asubmit" @click="save" id="pkh_add_su">提交</div>
+    </div>
+    <div class="container" v-cloak>
+      <div class="pk_togger" style="margin-top: 70px;">
+        <house-component hosetitle="帮扶团队:" myclass="bg_j pk_mem_input">
+          <input type="text" @click="selectItem('helpTeam')"  v-model="f.teamName" readonly="readonly" placeholder="请选择" />
+        </house-component>
+        <house-component hosetitle="帮扶人员:" myclass="bg_j pk_mem_input">
+          <input type="text" @click="selectItem('helpPerson')" v-model="f.helper" readonly="readonly" placeholder="请选择" />
+        </house-component>
+        <house-component hosetitle="随行人员:" myclass="pk_mem_input_all">
+          <input type="text" v-model="f.followers" name="" />
+        </house-component>
+        <house-component hosetitle="帮扶时间:" myclass="bg_j pk_mem_input">
+          <input type="text" v-model="f.time" @click="selectItem('time')" name="" readonly="readonly" placeholder="请选择"/>
+        </house-component>
+        <div class="clear dynamic"></div>
+        <house-component hosetitle="帮扶地点:" myclass="pk_mem_input_all">
+          <input type="text" v-model="f.place" name="" placeholder="请输入" />
+        </house-component>
+        <house-component hosetitle="帮扶内容:" myclass="pk_mem_input_all">
+          <input type="textarea" name="" v-model="f.content" placeholder="请输入" />
+        </house-component>
+        <api-upload :imgarray="imgarray"></api-upload>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../../script/api.js"></script>
+  <script type="text/javascript" src="../../script/vue.js"></script>
+  <script type="text/javascript" src="../../script/vueMixin.js"></script>
+  <script type="text/javascript" src="../../script/UICore.js"></script>
+  <script type="text/javascript" src="../../script/specialCrowd/rentalSpecialCrowd.js"></script>
+</body>
+<template id="houseInfo">
+  <div class="er_templ">
+    <div class="er_templ_in">
+      <div class="er_lable">{{hosetitle}}</div>
+      <div :class="myclass">
+        <slot></slot>
+      </div>
+    </div>
+  </div>
+</template>
+
+</html>

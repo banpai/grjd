@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>侧滑查询</title>
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/main/form.css">
+    <link rel="stylesheet" href="../../css/animate/animate.css">
+</head>
+<template id="item-element">
+    <div class="pk_mem_temp search_item">
+        <div class="pk_mem_lable" >{{actioname}}</div>
+          <slot></slot>
+    </div>
+</template>
+<body>
+  <div class="search_box"  id="search_box"  >
+      <img src="../../image/bg_03.png" class="searchHead" alt="">
+      <myelement v-for="(item,index) in items" :key="index" :actioname="item.label" myclass="item.type=='text?pk_mem_input_all:pk_mem_input search_bg_j">
+          <div class="pk_mem_input search_bg_j" v-if="item.type=='area'">
+              <input type="text" @click="selectArea"  v-model="params.areaName" readonly="readonly" placeholder="请选择" />
+          </div>
+          <div class="pk_mem_input_all " v-if="item.type=='text'">
+            <input type="text" v-model="params[item.name]" placeholder="请填写"/>
+          </div>
+          <div class="pk_mem_input search_bg_j" v-if="item.type=='select'">
+            <input type="text" @click="selectClick(item.values,item.name)" v-model="params[item.name].value" readonly="readonly" placeholder="请选择"/>
+          </div> 
+      </myelement>
+
+      <button class="search_submit slide_btn" @click="queryClick">搜索</button>
+
+  </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/UICore.js"></script>
+    <script type="text/javascript" src="../../script/vue.js"></script>
+    <script type="text/javascript" src="../../script/component/commonSearch.js"></script>
+</body>
+
+</html>
